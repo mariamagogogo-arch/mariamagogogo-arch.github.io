@@ -1,116 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<meta name="format-detection" content="telephone=no">
-<meta name="theme-color" content="#f1f4f8">
-<title>五年级学习小站</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的学习乐园</title>
 <style>
-/* 三门课各用自己练习页的主色：语文朱红、数学薄荷绿、英语藏青 */
-:root {
-  --bg: #f1f4f8;
-  --card: #ffffff;
-  --ink: #1f2a37;
-  --muted: #667385;
-  --line: #dde3ea;
-  --zh: #d9412b;
-  --zh-bg: #fdecea;
-  --math: #0f9d86;
-  --math-bg: #e2f5ef;
-  --en: #1d3557;
-  --en-bg: #e3eaf4;
-  --done: #2e8b62;
-  --f: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  --kai: "Kaiti SC", "STKaiti", "KaiTi", "楷体", serif;
-  color-scheme: light;
-}
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; background: var(--bg); color: var(--ink); }
-body { font-family: var(--f); font-size: 17px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
-.wrap { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px;
-  padding-top: max(20px, env(safe-area-inset-top, 0px)); padding-bottom: max(28px, env(safe-area-inset-bottom, 0px));
-  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-.date { color: var(--muted); font-size: 14px; }
-h1 { margin: 2px 0 0; font-size: 30px; line-height: 1.2; }
-.sub { margin: 4px 0 0; color: var(--muted); }
-.todo { background: var(--card); border-radius: 18px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
-.todo h2 { margin: 0; font-size: 15px; color: var(--muted); font-weight: 700; }
-.todo ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-.todo li { display: flex; align-items: center; gap: 10px; }
-.todo li i { width: 22px; height: 22px; flex: none; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font-style: normal; font-size: 13px; color: #fff; font-weight: 900; }
-.todo li.ok i { background: var(--done); border-color: var(--done); }
-.todo li.ok span { color: var(--muted); text-decoration: line-through; }
-a.sub-card { display: flex; align-items: center; gap: 14px; background: var(--card); border-radius: 18px; padding: 16px; color: inherit; text-decoration: none; box-shadow: 0 1px 0 var(--line); min-width: 0; }
-a.sub-card:active { transform: scale(.98); }
-a.sub-card:focus-visible { outline: 3px solid var(--c); outline-offset: 2px; }
-.ico { width: 60px; height: 60px; flex: none; border-radius: 16px; background: var(--cbg); color: var(--c); display: grid; place-items: center; font: 700 32px/1 var(--kai); }
-.ico.num { font: 800 26px/1 var(--f); }
-.ico.en { font: 700 24px/1 "Comic Sans MS", "Chalkboard SE", var(--f); }
-.txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.txt b { font-size: 19px; }
-.txt small { color: var(--muted); font-size: 13px; }
-.txt .st { font-size: 14px; font-weight: 700; color: var(--c); }
-.arrow { color: var(--muted); font-size: 22px; }
-.zh { --c: var(--zh); --cbg: var(--zh-bg); }
-.math { --c: var(--math); --cbg: var(--math-bg); }
-.en { --c: var(--en); --cbg: var(--en-bg); }
-.foot { text-align: center; font-size: 13px; color: var(--muted); margin: 4px 0 0; }
+  :root {
+    --bg: #fff8ee;
+    --ink: #2d2a32;
+    --muted: #7a7380;
+    --card: #ffffff;
+    --shadow: 0 6px 0 rgba(45, 42, 50, 0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    background-image: radial-gradient(#f3e3c8 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 28px 16px 40px;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; }
+
+  header { text-align: center; margin-bottom: 28px; }
+  .hello { font-size: 15px; color: var(--muted); margin-bottom: 6px; }
+  h1 { font-size: 30px; letter-spacing: 1px; }
+  h1 span { display: inline-block; animation: bob 2.4s ease-in-out infinite; }
+  .date {
+    display: inline-block; margin-top: 12px; padding: 6px 14px;
+    background: #ffe2a8; border-radius: 999px; font-size: 14px; font-weight: 600;
+  }
+  .quote { margin-top: 12px; font-size: 14px; color: var(--muted); }
+
+  .grid { display: grid; gap: 16px; }
+  .card {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px; border-radius: 20px;
+    background: var(--card); border: 3px solid var(--ink);
+    box-shadow: var(--shadow);
+    text-decoration: none; color: var(--ink);
+    transition: transform .12s, box-shadow .12s;
+  }
+  .card:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(45,42,50,.12); }
+  .icon {
+    flex: none; width: 64px; height: 64px; border-radius: 16px;
+    display: grid; place-items: center; font-size: 34px;
+    border: 3px solid var(--ink);
+  }
+  .info { flex: 1; min-width: 0; }
+  .info h2 { font-size: 20px; margin-bottom: 4px; }
+  .info p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .go { font-size: 26px; font-weight: 700; }
+
+  .soon { opacity: .55; pointer-events: none; border-style: dashed; }
+  .tag {
+    display: inline-block; font-size: 12px; padding: 2px 8px; margin-left: 6px;
+    border-radius: 6px; background: #eee; color: var(--muted); vertical-align: middle;
+  }
+
+  footer { text-align: center; margin-top: 32px; font-size: 13px; color: var(--muted); }
+
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
 </style>
 </head>
 <body>
-<main class="wrap">
+<div class="wrap">
   <header>
+    <div class="hello" id="hello">你好呀！</div>
+    <h1><span>📚</span> 我的学习乐园</h1>
     <div class="date" id="date"></div>
-    <h1>今天学点什么？</h1>
-    <p class="sub">选一个开始练习，做完回来打个勾。</p>
+    <div class="quote" id="quote"></div>
   </header>
-  <section class="todo" aria-label="今天的任务">
-    <h2>今天的任务</h2>
-    <ul id="todo"></ul>
-  </section>
-  <a class="sub-card zh" href="zi/"><span class="ico">字</span><span class="txt"><b>语文 · 错别字本</b><small>记下写错的字，按时复习</small><span class="st" id="st-zh"></span></span><span class="arrow">›</span></a>
-  <a class="sub-card math" href="math5/"><span class="ico num">5</span><span class="txt"><b>数学 · 每日5题</b><small>小数计算，带错题本</small><span class="st" id="st-math"></span></span><span class="arrow">›</span></a>
-  <a class="sub-card en" href="w5-words/"><span class="ico en">Aa</span><span class="txt"><b>英语 · 单词闯关</b><small>五上 Unit 1–6 单词和句子</small><span class="st" id="st-en"></span></span><span class="arrow">›</span></a>
-  <p class="foot">做题记录都保存在这台手机上。</p>
-</main>
+
+  <main class="grid" id="grid"></main>
+
+  <footer>每天进步一点点 ✨</footer>
+</div>
+
 <script>
-(function () {
-  function pad(n) { return n < 10 ? '0' + n : '' + n; }
-  var now = new Date(), m = /[?&]date=(\d{4}-\d{2}-\d{2})/.exec(location.search);
-  var today = m ? m[1] : now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
-  var p = today.split('-'), dt = new Date(+p[0], +p[1] - 1, +p[2]);
-  document.getElementById('date').textContent = (dt.getMonth() + 1) + '月' + dt.getDate() + '日 星期' + '日一二三四五六'[dt.getDay()];
-  function get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
-  function set(id, t) { document.getElementById(id).textContent = t; }
-  var todo = [];
+  /* ========= 在这里添加或修改学习工具 =========
+     每个工具一行，照着格式复制一行改内容即可。
+     link 留空 "" 表示"即将上线"。                */
+  const tools = [
+    { icon: "🔢", color: "#bfe3ff", title: "计算练习", desc: "每天 5 道题，越算越快",   link: "https://mariamagogogo-arch.github.io/math5/" },
+    { icon: "🔤", color: "#c8f2c2", title: "单词记忆", desc: "背单词、拼单词、闯关卡", link: "https://mariamagogogo-arch.github.io/w5-words/" },
+    { icon: "📝", color: "#ffe2a8", title: "错字本",   desc: "记错字、按时复习",       link: "cuozi.html" },
+    { icon: "📺", color: "#d9cfff", title: "数学讲解视频", desc: "期中错题，5 个 1 分钟动画", link: "videos.html" },
+    { icon: "✏️", color: "#ffd6d6", title: "作文小助手", desc: "敬请期待",               link: "" },
+  ];
 
-  var zi = get('zi-book-v1'), due = 0, total = 0, revToday = 0;
-  if (zi && zi.items) {
-    total = zi.items.length;
-    zi.items.forEach(function (it) { if (!it.mastered && it.due && it.due <= today) due++; });
-    revToday = zi.log && zi.log[today] ? zi.log[today].rev : 0;
-  }
-  set('st-zh', !total ? '还没有记录，先把写错的字记下来' : due ? '今天要复习 ' + due + ' 个 · 共 ' + total + ' 个' : '今天的复习完成了 · 共 ' + total + ' 个');
-  todo.push({ t: due ? '复习错别字（还有 ' + due + ' 个）' : revToday ? '复习错别字' : '复习错别字（今天没有要复习的）', ok: total > 0 && due === 0 });
-  todo.push({ t: '把今天写错的字记进错别字本', ok: !!(zi && zi.log && zi.log[today] && zi.log[today].add) });
+  /* 错字本：显示今天要复习几个 */
+  try {
+    const t = new Date();
+    const d = t.getFullYear() + "-" + String(t.getMonth() + 1).padStart(2, "0") + "-" + String(t.getDate()).padStart(2, "0");
+    const due = JSON.parse(localStorage.getItem("cuozi-v1") || "[]").filter(x => !x.done && x.due <= d).length;
+    if (due > 0) {
+      const c = tools.find(x => x.link === "cuozi.html");
+      c.desc = `🔔 今天要复习 ${due} 个字词`;
+      c.link = "cuozi.html#review";
+    }
+  } catch (e) {}
+  /* ============================================ */
 
-  var ma = get('mathDaily5-v1'), md = ma && ma.days && ma.days[today], n = 0, n1 = 0;
-  if (md) md.res.forEach(function (r) { if (r && r.st && r.st !== 'doing') { n++; if (r.st === 'right1') n1++; } });
-  set('st-math', n === 5 ? '今天完成 ✓ 一次做对 ' + n1 + ' 题' : n ? '今天已做 ' + n + '/5' : '今天的 5 题还没做');
-  todo.push({ t: '数学每日5题', ok: n === 5 });
+  const grid = document.getElementById("grid");
+  tools.forEach(t => {
+    const ready = t.link !== "";
+    const el = document.createElement(ready ? "a" : "div");
+    el.className = "card" + (ready ? "" : " soon");
+    if (ready) el.href = t.link;
+    el.innerHTML = `
+      <div class="icon" style="background:${t.color}">${t.icon}</div>
+      <div class="info">
+        <h2>${t.title}${ready ? "" : '<span class="tag">即将上线</span>'}</h2>
+        <p>${t.desc}</p>
+      </div>
+      <div class="go">${ready ? "›" : ""}</div>`;
+    grid.appendChild(el);
+  });
 
-  var en = get('w5-words-v1');
-  if (en) {
-    var stars = 0, k; for (k in en.best || {}) stars += en.best[k];
-    var wrong = Object.keys(en.wrong || {}).length;
-    set('st-en', '已得 ★ ' + stars + (wrong ? ' · 错题本 ' + wrong + ' 个词' : ''));
-  } else set('st-en', '还没开始，去拿第一颗星');
+  const now = new Date();
+  const week = ["日", "一", "二", "三", "四", "五", "六"];
+  document.getElementById("date").textContent =
+    `${now.getMonth() + 1}月${now.getDate()}日 · 星期${week[now.getDay()]}`;
 
-  document.getElementById('todo').innerHTML = todo.map(function (x) {
-    return '<li class="' + (x.ok ? 'ok' : '') + '"><i>' + (x.ok ? '✓' : '') + '</i><span>' + x.t + '</span></li>';
-  }).join('');
-})();
+  const h = now.getHours();
+  document.getElementById("hello").textContent =
+    h < 12 ? "早上好！☀️" : h < 18 ? "下午好！🌤️" : "晚上好！🌙";
+
+  const quotes = [
+    "做完再检查一遍，会更棒哦！",
+    "错题是最好的老师。",
+    "慢慢来，比较快。",
+    "今天也要认真对待每一道题！",
+    "坚持就是超能力 💪",
+  ];
+  document.getElementById("quote").textContent = quotes[now.getDate() % quotes.length];
 </script>
 </body>
 </html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数学讲解视频</title>
+<style>
+  :root { --bg: #fff8ee; --ink: #2d2a32; --muted: #6f6876; --card: #ffffff; --accent: #c25a1b; --done: #23855a; --shadow: 0 6px 0 rgba(45,42,50,.12); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg);
+         background-image: radial-gradient(#f3e3c8 1.5px, transparent 1.5px); background-size: 22px 22px;
+         color: var(--ink); min-height: 100vh; padding: 16px 16px 48px; }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .back { color: var(--ink); text-decoration: none; font-size: 15px; font-weight: 600; }
+  h1 { font-size: 26px; margin: 10px 0 6px; }
+  .intro { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 18px; }
+  .prog { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+  .prog b { color: var(--done); }
+  .v { background: var(--card); border: 3px solid var(--ink); border-radius: 20px; box-shadow: var(--shadow);
+       padding: 14px; margin-bottom: 18px; }
+  .v.watched { border-color: var(--done); }
+  .head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .no { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff;
+        font-weight: 800; display: grid; place-items: center; font-size: 17px; }
+  .v.watched .no { background: var(--done); }
+  .title { font-size: 19px; font-weight: 800; }
+  .meta { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  video { display: block; width: 100%; border-radius: 12px; background: #eee; aspect-ratio: 16 / 9; }
+  .task { margin-top: 10px; font-size: 15px; line-height: 1.6; background: #fff3e6; border-radius: 12px; padding: 10px 12px; }
+  .task b { color: var(--accent); }
+  .row { display: flex; justify-content: flex-end; margin-top: 10px; }
+  .mark { font: inherit; font-size: 15px; font-weight: 700; padding: 10px 16px; min-height: 44px; border-radius: 12px;
+          border: 2px solid var(--ink); background: #fff; color: var(--ink); cursor: pointer; }
+  .v.watched .mark { background: var(--done); border-color: var(--done); color: #fff; }
+  .tip { font-size: 13px; color: var(--muted); text-align: center; margin-top: 8px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a class="back" href="./">‹ 返回首页</a></div>
+  <h1>📺 数学讲解视频</h1>
+  <p class="intro">每个视频 1 分钟左右，用期中练习的原题讲解。<br>看完后，<b>先给妈妈讲一遍</b>，再把试卷上对应的题重新做一遍。</p>
+  <div class="prog" id="prog"></div>
+  <div id="list"></div>
+  <p class="tip">建议顺序：第 1 周看 1、2，第 2 周看 3、4，第 3 周看 5。</p>
+</div>
+
+<script>
+  const VIDEOS = [
+    { id: "v1-decimal-division", title: "小数除法三步走", len: "1 分钟", task: "重做：<b>11.4 ÷ 99</b> 和 <b>129.6 ÷ 2.7</b>，注意商中间的 0" },
+    { id: "v2-bigger-smaller",   title: "乘除小于 1 的数，变大还是变小", len: "1 分 06 秒", task: "重做：<b>选择题第 3、6 题</b>，填空第 3 题的比大小" },
+    { id: "v3-shortcut-trap",    title: "简便计算的陷阱", len: "54 秒", task: "重做：<b>20 ÷ (0.2 + 0.05)</b> 和 <b>0.24 × 15 + 1.6 × 1.5</b>" },
+    { id: "v4-water-bill",       title: "阶梯水费：分段计费", len: "56 秒", task: "重做：<b>解决问题第 5 题</b>的两个小问" },
+    { id: "v5-word-problems",    title: "线段图解应用题", len: "1 分 08 秒", task: "重做：<b>填空第 12 题</b>、<b>解决问题第 6 题</b>、瓷砖题" },
+  ];
+  const KEY = "math-videos-watched";
+  let watched = {};
+  try { watched = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { watched = {}; }
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(watched)); } catch (e) {} };
+
+  const list = document.getElementById("list");
+  function render() {
+    list.innerHTML = "";
+    VIDEOS.forEach((v, i) => {
+      const done = !!watched[v.id];
+      const el = document.createElement("div");
+      el.className = "v" + (done ? " watched" : "");
+      el.innerHTML = `
+        <div class="head"><div class="no">${done ? "✓" : i + 1}</div>
+          <div><div class="title">${v.title}</div><div class="meta">${v.len}</div></div></div>
+        <video controls playsinline preload="none" poster="videos/${v.id}.jpg" src="videos/${v.id}.mp4"></video>
+        <div class="task">✏️ 看完以后 — ${v.task}</div>
+        <div class="row"><button class="mark" type="button">${done ? "已看完 ✓" : "我看完了"}</button></div>`;
+      el.querySelector(".mark").onclick = () => { watched[v.id] = !watched[v.id]; save(); render(); };
+      el.querySelector("video").addEventListener("ended", () => { watched[v.id] = true; save(); render(); });
+      list.appendChild(el);
+    });
+    const n = VIDEOS.filter((v) => watched[v.id]).length;
+    document.getElementById("prog").innerHTML = `已看完 <b>${n}</b> / ${VIDEOS.length} 个`;
+  }
+  render();
+</script>
+</body>
+</html>
