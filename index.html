@@ -1,142 +1,202 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我的学习乐园</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#f1f4f8">
+<title>五年级学习小站</title>
 <style>
-  :root {
-    --bg: #fff8ee;
-    --ink: #2d2a32;
-    --muted: #7a7380;
-    --card: #ffffff;
-    --shadow: 0 6px 0 rgba(45, 42, 50, 0.12);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: var(--bg);
-    background-image: radial-gradient(#f3e3c8 1.5px, transparent 1.5px);
-    background-size: 22px 22px;
-    color: var(--ink);
-    min-height: 100vh;
-    padding: 28px 16px 40px;
-  }
-  .wrap { max-width: 560px; margin: 0 auto; }
+/* 四个入口各用自己练习页的主色：语文朱红、数学薄荷绿、英语藏青、讲解视频紫 */
+:root {
+  --bg: #f1f4f8;
+  --card: #ffffff;
+  --ink: #1f2a37;
+  --muted: #566273;
+  --line: #dde3ea;
+  --zh: #d9412b;
+  --zh-bg: #fdecea;
+  --math: #0f9d86;
+  --math-ink: #0a7867;
+  --math-bg: #e2f5ef;
+  --en: #1d3557;
+  --en-bg: #e3eaf4;
+  --vid: #5b3fb5;
+  --vid-bg: #ece7fa;
+  --done: #2e8b62;
+  --done-bg: #e4f4ea;
+  --sun: #e9a31a;
+  --f: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --kai: "Kaiti SC", "STKaiti", "KaiTi", "楷体", serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+body { font-family: var(--f); font-size: 17px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
+::selection { background: #cfe9e2; }
+.wrap { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px;
+  padding-top: max(20px, env(safe-area-inset-top, 0px)); padding-bottom: max(28px, env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.date { color: var(--muted); font-size: 15px; }
+h1 { margin: 2px 0 0; font-size: 30px; line-height: 1.2; }
+.sub { margin: 4px 0 0; color: var(--muted); font-size: 16px; }
 
-  header { text-align: center; margin-bottom: 28px; }
-  .hello { font-size: 15px; color: var(--muted); margin-bottom: 6px; }
-  h1 { font-size: 30px; letter-spacing: 1px; }
-  h1 span { display: inline-block; animation: bob 2.4s ease-in-out infinite; }
-  .date {
-    display: inline-block; margin-top: 12px; padding: 6px 14px;
-    background: #ffe2a8; border-radius: 999px; font-size: 14px; font-weight: 600;
-  }
-  .quote { margin-top: 12px; font-size: 14px; color: var(--muted); }
+/* 本周 */
+.week { background: var(--card); border-radius: 18px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.week-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.week-top b { font-size: 18px; }
+.week-top b em { font-style: normal; color: var(--done); font-size: 24px; margin: 0 2px; font-variant-numeric: tabular-nums; }
+.week-top span { font-size: 15px; color: var(--muted); }
+.week-top span em { font-style: normal; color: var(--sun); font-weight: 800; }
+.days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; list-style: none; margin: 0; padding: 0; }
+.days li { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 14px; color: var(--muted); }
+.days li i { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font-style: normal; }
+.days li.on i { background: var(--done); border-color: var(--done); }
+.days li.on i svg { display: block; }
+.days li.today { color: var(--ink); font-weight: 800; }
+.days li.today i { border-color: var(--ink); }
+.days li.on.today i { border-color: var(--done); }
+.days li.future i { border-style: dashed; }
 
-  .grid { display: grid; gap: 16px; }
-  .card {
-    display: flex; align-items: center; gap: 16px;
-    padding: 18px; border-radius: 20px;
-    background: var(--card); border: 3px solid var(--ink);
-    box-shadow: var(--shadow);
-    text-decoration: none; color: var(--ink);
-    transition: transform .12s, box-shadow .12s;
-  }
-  .card:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(45,42,50,.12); }
-  .icon {
-    flex: none; width: 64px; height: 64px; border-radius: 16px;
-    display: grid; place-items: center; font-size: 34px;
-    border: 3px solid var(--ink);
-  }
-  .info { flex: 1; min-width: 0; }
-  .info h2 { font-size: 20px; margin-bottom: 4px; }
-  .info p { font-size: 14px; color: var(--muted); line-height: 1.5; }
-  .go { font-size: 26px; font-weight: 700; }
+/* 今天的任务 */
+.todo { background: var(--card); border-radius: 18px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.todo h2 { margin: 0; font-size: 16px; color: var(--muted); font-weight: 700; }
+.todo.all h2 { color: var(--done); }
+.todo ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.todo a { display: flex; align-items: center; gap: 12px; min-height: 48px; color: inherit; text-decoration: none; border-radius: 12px; padding: 4px 6px; margin: 0 -6px; }
+.todo a:active { background: var(--bg); }
+.todo a:focus-visible { outline: 3px solid var(--sun); outline-offset: 1px; }
+.todo a i { width: 26px; height: 26px; flex: none; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font-style: normal; }
+.todo a .t { flex: 1; min-width: 0; }
+.todo a .go { color: var(--muted); font-size: 15px; font-weight: 700; white-space: nowrap; }
+.todo li.ok i { background: var(--done); border-color: var(--done); }
+.todo li.ok .t { color: var(--muted); }
+.todo li.ok .go { color: var(--done); }
+.cheer { display: none; margin: 4px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--done-bg); color: #1f6b49; font-weight: 800; font-size: 16px; }
+.todo.all .cheer { display: block; animation: rise .5s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .todo.all .cheer { animation: none; } }
 
-  .soon { opacity: .55; pointer-events: none; border-style: dashed; }
-  .tag {
-    display: inline-block; font-size: 12px; padding: 2px 8px; margin-left: 6px;
-    border-radius: 6px; background: #eee; color: var(--muted); vertical-align: middle;
-  }
-
-  footer { text-align: center; margin-top: 32px; font-size: 13px; color: var(--muted); }
-
-  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
+/* 科目卡片 */
+a.sub-card { display: flex; align-items: center; gap: 14px; background: var(--card); border-radius: 18px; padding: 16px; color: inherit; text-decoration: none; box-shadow: 0 1px 0 var(--line); min-width: 0; }
+a.sub-card:active { transform: scale(.98); }
+a.sub-card:focus-visible { outline: 3px solid var(--c); outline-offset: 2px; }
+.ico { width: 60px; height: 60px; flex: none; border-radius: 16px; background: var(--cbg); color: var(--c); display: grid; place-items: center; font: 700 32px/1 var(--kai); }
+.ico.num { font: 800 26px/1 var(--f); color: var(--math-ink); }
+.ico.en { font: 700 24px/1 "Comic Sans MS", "Chalkboard SE", var(--f); }
+.txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.txt b { font-size: 19px; }
+.txt small { color: var(--muted); font-size: 15px; }
+.txt .st { font-size: 15px; font-weight: 700; color: var(--c); }
+.math .txt .st { color: var(--math-ink); }
+.arrow { color: var(--muted); font-size: 22px; }
+.zh { --c: var(--zh); --cbg: var(--zh-bg); }
+.math { --c: var(--math); --cbg: var(--math-bg); }
+.en { --c: var(--en); --cbg: var(--en-bg); }
+.vid { --c: var(--vid); --cbg: var(--vid-bg); }
+.foot { text-align: center; font-size: 14px; color: var(--muted); margin: 4px 0 0; }
 </style>
 </head>
 <body>
-<div class="wrap">
+<main class="wrap">
   <header>
-    <div class="hello" id="hello">你好呀！</div>
-    <h1><span>📚</span> 我的学习乐园</h1>
     <div class="date" id="date"></div>
-    <div class="quote" id="quote"></div>
+    <h1>今天学点什么？</h1>
+    <p class="sub">点下面的任务直接开始，做完自动打勾。</p>
   </header>
 
-  <main class="grid" id="grid"></main>
+  <section class="week" aria-label="本周学习">
+    <div class="week-top"><b id="streak"></b><span id="stars"></span></div>
+    <ul class="days" id="days"></ul>
+  </section>
 
-  <footer>每天进步一点点 ✨</footer>
-</div>
+  <section class="todo" id="todo-box" aria-label="今天的任务">
+    <h2 id="todo-h">今天的任务</h2>
+    <ul id="todo"></ul>
+    <p class="cheer" role="status">今天的任务全部完成了，真棒！明天继续。</p>
+  </section>
 
+  <a class="sub-card zh" href="zi/"><span class="ico">字</span><span class="txt"><b>语文 · 错别字本</b><small>记下写错的字，按时复习</small><span class="st" id="st-zh"></span></span><span class="arrow">›</span></a>
+  <a class="sub-card math" href="math5/"><span class="ico num">5</span><span class="txt"><b>数学 · 每日5题</b><small>小数计算，带错题本</small><span class="st" id="st-math"></span></span><span class="arrow">›</span></a>
+  <a class="sub-card en" href="w5-words/"><span class="ico en">Aa</span><span class="txt"><b>英语 · 单词闯关</b><small>五上 Unit 1–6 单词和句子</small><span class="st" id="st-en"></span></span><span class="arrow">›</span></a>
+  <a class="sub-card vid" href="videos/"><span class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></span><span class="txt"><b>数学 · 讲解视频</b><small>期中错题，5 个 1 分钟动画</small><span class="st" id="st-vid"></span></span><span class="arrow">›</span></a>
+
+  <p class="foot">做题记录都保存在这台手机上。</p>
+</main>
 <script>
-  /* ========= 在这里添加或修改学习工具 =========
-     每个工具一行，照着格式复制一行改内容即可。
-     link 留空 "" 表示"即将上线"。                */
-  const tools = [
-    { icon: "🔢", color: "#bfe3ff", title: "计算练习", desc: "每天 5 道题，越算越快",   link: "https://mariamagogogo-arch.github.io/math5/" },
-    { icon: "🔤", color: "#c8f2c2", title: "单词记忆", desc: "背单词、拼单词、闯关卡", link: "https://mariamagogogo-arch.github.io/w5-words/" },
-    { icon: "📝", color: "#ffe2a8", title: "错字本",   desc: "记错字、按时复习",       link: "cuozi.html" },
-    { icon: "📺", color: "#d9cfff", title: "数学讲解视频", desc: "期中错题，5 个 1 分钟动画", link: "videos.html" },
-    { icon: "✏️", color: "#ffd6d6", title: "作文小助手", desc: "敬请期待",               link: "" },
-  ];
+(function () {
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  var m = /[?&]date=(\d{4}-\d{2}-\d{2})/.exec(location.search);
+  var today = m ? m[1] : ymd(new Date());
+  var p = today.split('-'), dt = new Date(+p[0], +p[1] - 1, +p[2]);
+  document.getElementById('date').textContent = (dt.getMonth() + 1) + '月' + dt.getDate() + '日 星期' + '日一二三四五六'[dt.getDay()];
+  function get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
+  function set(id, t) { document.getElementById(id).textContent = t; }
+  var CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 
-  /* 错字本：显示今天要复习几个 */
-  try {
-    const t = new Date();
-    const d = t.getFullYear() + "-" + String(t.getMonth() + 1).padStart(2, "0") + "-" + String(t.getDate()).padStart(2, "0");
-    const due = JSON.parse(localStorage.getItem("cuozi-v1") || "[]").filter(x => !x.done && x.due <= d).length;
-    if (due > 0) {
-      const c = tools.find(x => x.link === "cuozi.html");
-      c.desc = `🔔 今天要复习 ${due} 个字词`;
-      c.link = "cuozi.html#review";
-    }
-  } catch (e) {}
-  /* ============================================ */
+  var zi = get('zi-book-v1'), ma = get('mathDaily5-v1'), en = get('w5-words-v1'), vids = get('math-videos-watched') || {};
 
-  const grid = document.getElementById("grid");
-  tools.forEach(t => {
-    const ready = t.link !== "";
-    const el = document.createElement(ready ? "a" : "div");
-    el.className = "card" + (ready ? "" : " soon");
-    if (ready) el.href = t.link;
-    el.innerHTML = `
-      <div class="icon" style="background:${t.color}">${t.icon}</div>
-      <div class="info">
-        <h2>${t.title}${ready ? "" : '<span class="tag">即将上线</span>'}</h2>
-        <p>${t.desc}</p>
-      </div>
-      <div class="go">${ready ? "›" : ""}</div>`;
-    grid.appendChild(el);
-  });
+  // ---------- 语文 ----------
+  var due = 0, total = 0, ziLog = (zi && zi.log) || {};
+  if (zi && zi.items) {
+    total = zi.items.length;
+    zi.items.forEach(function (it) { if (!it.mastered && it.due && it.due <= today) due++; });
+  }
+  set('st-zh', !total ? '还没有记录，先把写错的字记下来' : due ? '今天要复习 ' + due + ' 个 · 共 ' + total + ' 个' : '今天的复习完成了 · 共 ' + total + ' 个');
 
-  const now = new Date();
-  const week = ["日", "一", "二", "三", "四", "五", "六"];
-  document.getElementById("date").textContent =
-    `${now.getMonth() + 1}月${now.getDate()}日 · 星期${week[now.getDay()]}`;
+  // ---------- 数学 ----------
+  function mathDone(d) {
+    var md = ma && ma.days && ma.days[d], n = 0, n1 = 0;
+    if (md && md.res) md.res.forEach(function (r) { if (r && r.st && r.st !== 'doing') { n++; if (r.st === 'right1') n1++; } });
+    return { n: n, n1: n1 };
+  }
+  var mt = mathDone(today);
+  set('st-math', mt.n === 5 ? '今天完成 ✓ 一次做对 ' + mt.n1 + ' 题' : mt.n ? '今天已做 ' + mt.n + '/5' : '今天的 5 题还没做');
 
-  const h = now.getHours();
-  document.getElementById("hello").textContent =
-    h < 12 ? "早上好！☀️" : h < 18 ? "下午好！🌤️" : "晚上好！🌙";
+  // ---------- 英语 ----------
+  var stars = 0, k;
+  if (en) {
+    for (k in en.best || {}) stars += en.best[k];
+    var wrong = Object.keys(en.wrong || {}).length;
+    set('st-en', '已得 ★ ' + stars + (wrong ? ' · 错题本 ' + wrong + ' 个词' : ''));
+  } else set('st-en', '还没开始，去拿第一颗星');
 
-  const quotes = [
-    "做完再检查一遍，会更棒哦！",
-    "错题是最好的老师。",
-    "慢慢来，比较快。",
-    "今天也要认真对待每一道题！",
-    "坚持就是超能力 💪",
-  ];
-  document.getElementById("quote").textContent = quotes[now.getDate() % quotes.length];
+  // ---------- 讲解视频 ----------
+  var vn = 0; for (k in vids) if (vids[k]) vn++;
+  set('st-vid', vn ? '已看完 ' + vn + ' / 5 个' : '还没看，先看第 1 个');
+
+  // ---------- 今天的任务：每一行都能点，直接去做 ----------
+  var todo = [];
+  if (!total) todo.push({ t: '记下第一个写错的字', go: '去记录', href: 'zi/', ok: false });
+  else if (due) todo.push({ t: '复习错别字（还有 ' + due + ' 个）', go: '去复习', href: 'zi/', ok: false });
+  else todo.push({ t: '复习错别字（今天没有要复习的）', go: '已完成', href: 'zi/', ok: true });
+  todo.push({ t: '把今天写错的字记进错别字本', go: '去记录', href: 'zi/', ok: !!(ziLog[today] && ziLog[today].add) });
+  todo.push({ t: mt.n && mt.n < 5 ? '数学每日5题（已做 ' + mt.n + '/5）' : '数学每日5题', go: mt.n ? '继续做' : '去做题', href: 'math5/', ok: mt.n === 5 });
+  todo.forEach(function (x) { if (x.ok) x.go = '已完成'; });
+  document.getElementById('todo').innerHTML = todo.map(function (x) {
+    return '<li class="' + (x.ok ? 'ok' : '') + '"><a href="' + x.href + '"><i>' + (x.ok ? CHECK : '') + '</i><span class="t">' + x.t + '</span><span class="go">' + x.go + ' ›</span></a></li>';
+  }).join('');
+  var allDone = todo.every(function (x) { return x.ok; });
+  if (allDone) { document.getElementById('todo-box').className = 'todo all'; set('todo-h', '今天的任务 · 全部完成'); }
+
+  // ---------- 本周：哪天学过就点亮 ----------
+  function active(d) { var l = ziLog[d]; return !!((l && (l.add || l.rev)) || mathDone(d).n > 0); }
+  var dow = (dt.getDay() + 6) % 7, monday = new Date(dt); monday.setDate(dt.getDate() - dow);
+  var html = '', names = '一二三四五六日';
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(monday); d.setDate(monday.getDate() + i);
+    var key = ymd(d), on = key <= today && active(key);
+    var cls = (on ? 'on ' : '') + (key === today ? 'today ' : '') + (key > today ? 'future' : '');
+    html += '<li class="' + cls + '"><i>' + (on ? CHECK : '') + '</i>' + (key === today ? '今天' : names[i]) + '</li>';
+  }
+  document.getElementById('days').innerHTML = html;
+  var streak = 0, c = new Date(dt);
+  if (!active(today)) c.setDate(c.getDate() - 1);
+  while (streak < 365 && active(ymd(c))) { streak++; c.setDate(c.getDate() - 1); }
+  document.getElementById('streak').innerHTML = streak ? '已经连续学习<em>' + streak + '</em>天' : '今天开始，点亮第一天';
+  document.getElementById('stars').innerHTML = '英语 <em>★ ' + stars + '</em>';
+})();
 </script>
 </body>
 </html>

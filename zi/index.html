@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#f2f6f1">
 <title>错别字本</title>
@@ -12,7 +12,7 @@
   --bg: #f2f6f1;
   --paper: #ffffff;
   --ink: #23272b;
-  --muted: #69736d;
+  --muted: #57615b;
   --line: #dde7df;
   --soft: #f6f9f5;
   --grid: #8ec7a6;
@@ -41,7 +41,7 @@ a { color: var(--jade-d); text-decoration: none; }
 h1 { margin: 0; font: 700 34px/1.2 var(--kai); letter-spacing: .06em; }
 h1 em { font-style: normal; color: var(--red); }
 h2 { margin: 0; font-size: 16px; }
-.mini { font-size: 13px; color: var(--muted); margin: 0; }
+.mini { font-size: 15px; color: var(--muted); margin: 0; }
 .topbar { display: flex; align-items: center; gap: 12px; min-height: 40px; }
 .back { font-weight: 700; color: var(--jade-d); padding: 6px 10px 6px 0; white-space: nowrap; }
 .ttl { font-weight: 700; font-size: 18px; }
@@ -60,16 +60,16 @@ h2 { margin: 0; font-size: 16px; }
 .tile { background: var(--paper); border-radius: 16px; padding: 12px 6px; text-align: center; display: flex; flex-direction: column; }
 .tile b { font-size: 28px; line-height: 1.15; font-variant-numeric: tabular-nums; }
 .tile.due b { color: var(--red); }
-.tile span { font-size: 12px; color: var(--muted); }
+.tile span { font-size: 14px; color: var(--muted); }
 .seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--soft); border: 2px solid var(--line); border-radius: 12px; padding: 3px; }
 .seg button { min-height: 40px; border-radius: 9px; font-weight: 700; color: var(--muted); font-size: 15px; }
 .seg button[aria-pressed="true"] { background: var(--paper); color: var(--jade-d); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
 .more { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 .more button { background: var(--soft); border: 2px solid var(--line); border-radius: 12px; padding: 10px 4px; font-size: 14px; font-weight: 700; display: flex; flex-direction: column; gap: 2px; }
-.more button small { font-weight: 400; color: var(--muted); font-size: 12px; }
+.more button small { font-weight: 400; color: var(--muted); font-size: 14px; }
 .more button:disabled { opacity: .45; }
-.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; font-size: 12px; color: var(--muted); }
-.week b { display: block; margin: 4px auto 0; width: 34px; height: 34px; border-radius: 50%; line-height: 30px; background: var(--soft); border: 2px solid var(--line); color: var(--ink); font-size: 13px; }
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; font-size: 14px; color: var(--muted); }
+.week b { display: block; margin: 4px auto 0; width: 34px; height: 34px; border-radius: 50%; line-height: 30px; background: var(--soft); border: 2px solid var(--line); color: var(--ink); font-size: 15px; }
 .week .on b { background: var(--ok-bg); border-color: var(--grid); color: var(--jade-d); }
 
 /* 田字格 */
@@ -120,11 +120,11 @@ details.batch[open] summary { margin-bottom: 10px; }
 .item > button { width: 100%; display: flex; align-items: center; gap: 10px; padding: 12px 14px; text-align: left; }
 .item .w { font: 400 26px/1.2 var(--kai); letter-spacing: .06em; }
 .item .b { font: 400 17px var(--kai); color: var(--red); text-decoration: line-through; }
-.item .meta { margin-left: auto; text-align: right; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.item .meta { margin-left: auto; text-align: right; font-size: 14px; color: var(--muted); white-space: nowrap; }
 .lv { display: inline-flex; gap: 3px; margin-top: 3px; }
 .lv i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
 .lv i.on { background: var(--jade); }
-.tag { display: inline-block; font-size: 12px; font-weight: 700; border-radius: 99px; padding: 0 8px; }
+.tag { display: inline-block; font-size: 14px; font-weight: 700; border-radius: 99px; padding: 0 8px; }
 .tag.due { background: var(--red-bg); color: var(--red); }
 .tag.learn { background: #fff4d6; color: #9a6a00; }
 .tag.done { background: var(--ok-bg); color: var(--jade-d); }
